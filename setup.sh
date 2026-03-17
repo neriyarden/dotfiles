@@ -47,24 +47,30 @@ backup_if_needed() {
   fi
 }
 
-# Files that stow will manage (relative to $HOME)
-declare -A MODULE_FILES
-MODULE_FILES[claude]=".claude/CLAUDE.md .claude/settings.json"
-MODULE_FILES[zsh]=".zshrc"
-MODULE_FILES[vscode]="Library/Application Support/Code/User/settings.json Library/Application Support/Code/User/keybindings.json"
-MODULE_FILES[ssh]=".ssh/config"
-
-for module in "${MODULES[@]}"; do
+# Files that stow will manage per module (one path per line, supports spaces)
+backup_module() {
+  local module="$1"
+  shift
   echo "--- Stowing module: $module ---"
-
-  # Back up files that would conflict
-  IFS=' ' read -ra files <<< "${MODULE_FILES[$module]}"
-  for rel_path in "${files[@]}"; do
-    backup_if_needed "$HOME/$rel_path"
+  for target in "$@"; do
+    backup_if_needed "$target"
   done
-
   stow --dir="$DOTFILES_DIR" --target="$HOME" --restow "$module"
-done
+}
+
+backup_module claude \
+  "$HOME/.claude/CLAUDE.md" \
+  "$HOME/.claude/settings.json"
+
+backup_module zsh \
+  "$HOME/.zshrc"
+
+backup_module vscode \
+  "$HOME/Library/Application Support/Code/User/settings.json" \
+  "$HOME/Library/Application Support/Code/User/keybindings.json"
+
+backup_module ssh \
+  "$HOME/.ssh/config"
 
 # Install VS Code extensions
 if command -v code &>/dev/null; then
