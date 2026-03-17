@@ -1,0 +1,136 @@
+{
+  "code-runner.showExecutionMessage": false,
+  "debug.console.fontSize": 14.5,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+  },
+  "editor.fontFamily": "Monaco, space mono, Consolas, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.parameterHints.enabled": false,
+  "editor.hover.delay": 500,
+  "editor.rulers": [80],
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on",
+  },
+  "editor.suggestSelection": "first",
+  "editor.tokenColorCustomizations": {
+    "comments": "#bbb",
+  },
+  "eslint.alwaysShowStatus": true,
+  "explorer.confirmDragAndDrop": false,
+  "files.autoSave": "onFocusChange",
+  "files.defaultLanguage": "eng",
+  "html.autoClosingTags": false,
+  "html-css-class-completion.enableEmmetSupport": true,
+  "htmltagwrap.tag": "div",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "kite.showWelcomeNotificationOnStartup": false,
+  "liveServer.settings.useBrowserPreview": true,
+  "markdown.preview.fontSize": 14.5,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left",
+  },
+  "output.smartScroll.enabled": false,
+  "python.languageServer": "Pylance",
+  "python.globalModuleInstallation": true,
+  "terminal.integrated.fontSize": 13,
+  "terminal.external.windowsExec": "C:\\\\Windows\\\\System32\\\\cmd.exe",
+  "sync.autoDownload": true,
+  "sync.autoUpload": true,
+  "sync.gist": "46efb015688957c6cec11306c395287b",
+  "sync.quietSync": true,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe",
+      ],
+      "args": [],
+      "icon": "terminal-cmd",
+    },
+    "Git Bash": {
+      "source": "Git Bash",
+    },
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+    },
+  },
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook",
+  },
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.formatOnType": true,
+  },
+  //   "[html]": {
+  //     "editor.tabSize": 2,
+  //     "editor.defaultFormatter": "vscode.typescript-language-features",
+  //   },
+  "[css]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[scss]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.suggest.insertMode": "replace"
+  },
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": false,
+  "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.stickyScroll.enabled": true,
+  "git.autofetch": true,
+  "window.nativeTabs": true,
+  "git.branchProtectionPrompt": "alwaysCommitToNewBranch",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "cSpell.userWords": ["clsx", "neri", "tailwindcss", "typecheck"],
+  "tree-generator.defaultDepth": 10,
+  "tree-generator.exclude": {
+    "**/.next/**": true,
+    "**/.git/**": true,
+    "**/.vscode/**": true,
+    "**/.turbo/**": true,
+  },
+  "githubPullRequests.pullBranch": "never",
+  "window.zoomLevel": 1,
+  "gitlens.ai.experimental.provider": "openai",
+  "gitlens.ai.experimental.openai.model": "gpt-3.5-turbo-1106",
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.useTerminal": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "git.confirmSync": false,
+  "window.autoDetectColorScheme": true,
+  "remote.SSH.remotePlatform": {
+    "sandbox.tm53sd.csb": "linux",
+  },
+}

@@ -1,0 +1,95 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  {
+    "key": "shift+alt+down",
+    "command": "-editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "-editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "alt+down",
+    "command": "-notebook.cell.moveDown",
+    "when": "notebookEditorFocused && !inputFocus",
+  },
+  {
+    "key": "alt+down",
+    "command": "-editor.action.smartSelect.shrink",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "alt+up",
+    "command": "-notebook.cell.moveUp",
+    "when": "notebookEditorFocused && !inputFocus",
+  },
+  {
+    "key": "alt+up",
+    "command": "-editor.action.smartSelect.grow",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "enter",
+    "command": "-list.select",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsFolder",
+  },
+  {
+    "key": "cmd+d",
+    "command": "-editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorHasSelection && !editorReadonly",
+  },
+  {
+    "key": "shift shift",
+    "command": "workbench.action.quickOpen",
+  },
+  {
+    "key": "cmd+i",
+    "command": "-inlineChat.start",
+    "when": "editorFocus && inlineChatHasEditsAgent && inlineChatPossible && !editorReadonly && !editorSimpleInput || editorFocus && inlineChatHasNotebookAgent && inlineChatPossible && !editorReadonly && !editorSimpleInput && activeEditor == 'workbench.editor.notebook' || editorFocus && inlineChatHasNotebookInline && inlineChatPossible && !editorReadonly && !editorSimpleInput && activeEditor == 'workbench.editor.notebook'",
+  },
+  {
+    "key": "cmd+i",
+    "command": "-workbench.action.chat.startVoiceChat",
+    "when": "chatIsEnabled && hasSpeechProvider && inChatInput && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress || chatIsEnabled && hasSpeechProvider && inlineChatFocused && !editorFocus && !notebookEditorFocused && !scopedVoiceChatGettingReady && !speechToTextInProgress",
+  },
+  {
+    "key": "cmd+i",
+    "command": "-workbench.action.chat.stopListeningAndSubmit",
+    "when": "inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inChatInput && voiceChatInProgress && scopedVoiceChatInProgress == 'view' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || inlineChatFocused && voiceChatInProgress && scopedVoiceChatInProgress == 'view'",
+  },
+  // {
+  // 	"key": "ctrl+=",
+  // 	"command": "editor.action.duplicateSelection"
+  // },
+  // {
+  // 	"key": "f2",
+  // 	"command": "-editor.action.marker.next",
+  // 	"when": "editorFocus"
+  // },
+  // {
+  // 	"key": "shift+f6",
+  // 	"command": "-editor.action.rename",
+  // 	"when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  // },
+  // {
+  // 	"key": "f2",
+  // 	"command": "editor.action.rename"
+  // },
+  // {
+  // 	"key": "enter",
+  // 	"command": "-list.select",
+  // 	"when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsFolder"
+  // },
+  // {
+  // 	"key": "cmd+backspace",
+  // 	"command": "-editor.action.deleteLines",
+  // 	"when": "editorTextFocus && !editorReadonly"
+  // },
+  // {
+  // 	"key": "alt+down",
+  // 	"command": "-notebook.cell.moveDown",
+  // 	"when": "notebookEditorFocused && !inputFocus"
+  // }
+]
