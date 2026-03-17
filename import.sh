@@ -7,7 +7,9 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 copy_if_exists() {
   local src="$1"
   local dest="$2"
-  if [[ -f "$src" ]]; then
+  if [[ -L "$src" ]]; then
+    echo "  ~ $src (already symlinked, skipped)"
+  elif [[ -f "$src" ]]; then
     mkdir -p "$(dirname "$dest")"
     cp "$src" "$dest"
     echo "  ✓ $src"
