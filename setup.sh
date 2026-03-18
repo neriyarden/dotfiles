@@ -2,7 +2,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MODULES=(claude zsh vscode ssh)
+MODULES=(claude zsh vscode)
 
 # Install Homebrew if not present
 if ! command -v brew &>/dev/null; then
@@ -31,7 +31,6 @@ fi
 
 # Ensure parent directories exist for stow targets
 mkdir -p "$HOME/.claude"
-mkdir -p "$HOME/.ssh"
 mkdir -p "$HOME/Library/Application Support/Code/User"
 
 # Back up any existing non-symlink files before stowing; skip if already correctly symlinked
@@ -72,9 +71,6 @@ backup_module zsh \
 backup_module vscode \
   "$HOME/Library/Application Support/Code/User/settings.json" \
   "$HOME/Library/Application Support/Code/User/keybindings.json"
-
-backup_module ssh \
-  "$HOME/.ssh/config"
 
 # Install VS Code extensions
 if command -v code &>/dev/null; then

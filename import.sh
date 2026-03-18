@@ -43,7 +43,6 @@ copy_dir_if_exists "$HOME/.claude/skills"                                       
 copy_if_exists "$HOME/.zshrc"                                                         "$DOTFILES_DIR/zsh/.zshrc"
 copy_if_exists "$HOME/Library/Application Support/Code/User/settings.json"            "$DOTFILES_DIR/vscode/Library/Application Support/Code/User/settings.json"
 copy_if_exists "$HOME/Library/Application Support/Code/User/keybindings.json"         "$DOTFILES_DIR/vscode/Library/Application Support/Code/User/keybindings.json"
-copy_if_exists "$HOME/.ssh/config"                                                    "$DOTFILES_DIR/ssh/.ssh/config"
 
 echo ""
 echo "Done. Review changes with 'git diff', then commit and push."

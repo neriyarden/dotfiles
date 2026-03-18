@@ -36,7 +36,6 @@ bash setup.sh        # now symlink the updated repo configs
 | `claude` | `~/.claude/` (CLAUDE.md, settings.json) |
 | `zsh` | `~/.zshrc` |
 | `vscode` | VS Code settings and keybindings |
-| `ssh` | `~/.ssh/config` (hosts/aliases only, no keys) |
 
 ## Keeping extensions up to date
 
