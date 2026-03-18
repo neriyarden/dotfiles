@@ -13,19 +13,15 @@
       "Bash(echo:*)",
       "mcp__figma__get_screenshot",
       "Bash(cat:*)",
-      "Bash(pnpm lint:fix:*)",
       "mcp__figma__get_design_context",
       "Bash(find:*)",
-      "Bash(pnpm typecheck:*)",
       "Bash(ls:*)",
       "mcp__ide__getDiagnostics",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "Bash(gh api:*)",
-      "Bash(pnpm --filter attorney lint:*)",
       "WebFetch(domain:www.figma.com)",
       "Bash(npm view:*)",
-      "Bash(pnpm list:*)",
       "Bash(git diff:*)",
       "Bash(grep:*)",
       "Bash(tree:*)",
@@ -50,10 +46,7 @@
       "Bash(/tmp/fix_services.sh)",
       "Bash(xargs grep:*)",
       "Bash(git fetch:*)",
-      "Bash(gh pr review --help:*)",
-      "Bash(for id in 2693358395 2693358399 2693358401 2693358406 2693358408 2693358411 2693358412 2693359339 2693359437 2693361263 2693361373 2693361474 2693361557 2693361625)",
-      "Bash(do)",
-      "Bash(done)",
+      "Bash(gh pr review --help:*)"
     ],
     "deny": [],
     "ask": [],
@@ -96,10 +89,6 @@
     "Stop": [
       {
         "hooks": [
-          {
-            "type": "command",
-            "command": "afplay /System/Library/Sounds/Blow.aiff"
-          },
           {
             "type": "command",
             "command": "osascript -e 'tell application \"System Events\" to get name of first application process whose frontmost is true' | grep -qiE 'code|electron|warp' || afplay /System/Library/Sounds/Blow.aiff",
