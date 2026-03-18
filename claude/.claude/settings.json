@@ -52,7 +52,6 @@
     "ask": [],
     "defaultMode": "default"
   },
-  "model": "opus",
   "hooks": {
     "UserPromptSubmit": [
       {
