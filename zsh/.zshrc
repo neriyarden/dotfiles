@@ -19,11 +19,41 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Auto-switch Node version based on .nvmrc
+alias claudsp="claude --dangerously-skip-permissions"
+
+# Claude CLI function - automatically finds latest extension version
+claude() {
+  local claude_path=$(find ~/.vscode/extensions -name "anthropic.claude-code-*" -type d | sort -V | tail -1)/resources/native-binary/claude
+  if [[ -f "$claude_path" ]]; then
+    "$claude_path" "$@"
+  else
+    echo "Claude binary not found"
+    return 1
+  fi
+}
+
+
+# nvm initialization
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 autoload -U add-zsh-hook
 load-nvmrc() {
-  if [[ -f .nvmrc && -r .nvmrc ]]; then
-    nvm use
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+      # nvm install --reinstall-packages-from=node node
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
   fi
 }
 add-zsh-hook chpwd load-nvmrc
@@ -34,7 +64,15 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 
+# --- Local overrides (not tracked in git) ---
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
 # --- Aliases ---
 alias claudsp='claude --dangerously-skip-permissions'
 alias reload="source ~/.zshrc"
 alias zshconfig="code ~/.zshrc"
+
+# Let nvm manage the Node.js path dynamically
+export PATH="/Users/neriyarden/.local/bin:$PATH"
+export PATH="$PATH:`yarn global bin`"
+eval "$(/opt/homebrew/bin/brew shellenv)"

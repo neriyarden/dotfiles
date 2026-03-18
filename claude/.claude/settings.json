@@ -1,29 +1,62 @@
 {
-  "respectGitignore": false,
   "env": {
     "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "allow": [
+      "Bash(npm test:*)",
+      "Bash(test:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
       "Bash(git log:*)",
+      "Bash(echo:*)",
+      "mcp__figma__get_screenshot",
+      "Bash(cat:*)",
+      "Bash(pnpm lint:fix:*)",
+      "mcp__figma__get_design_context",
+      "Bash(find:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(ls:*)",
+      "mcp__ide__getDiagnostics",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(gh api:*)",
+      "Bash(pnpm --filter attorney lint:*)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(npm view:*)",
+      "Bash(pnpm list:*)",
       "Bash(git diff:*)",
+      "Bash(grep:*)",
+      "Bash(tree:*)",
+      "Bash(wc:*)",
+      "Bash(git ls-tree:*)",
       "Bash(git show:*)",
       "Bash(git stash:*)",
       "Bash(git checkout:*)",
-      "Bash(git fetch:*)",
-      "Bash(ls:*)",
-      "Bash(cat:*)",
-      "Bash(find:*)",
-      "Bash(grep:*)",
-      "Bash(tree:*)",
-      "Bash(npm test:*)",
+      "Bash(git remote:*)",
+      "Bash(npx eslint:*)",
       "Bash(npx tsc:*)",
-      "Mcp_context7_resolve-library-id",
-      "Mcp_context7_get-library-docs",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(pip3 install:*)",
+      "Bash(aws sts get-caller-identity:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:www.notion.so)",
+      "Bash(telepresence list:*)",
+      "Bash(python3:*)",
+      "Bash(npx -y mongodb-mcp-server@latest:*)",
+      "Bash(pgrep:*)",
+      "Bash(timeout 5 npx:*)",
+      "Bash(chmod:*)",
+      "Bash(/tmp/fix_services.sh)",
+      "Bash(xargs grep:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh pr review --help:*)",
+      "Bash(for id in 2693358395 2693358399 2693358401 2693358406 2693358408 2693358411 2693358412 2693359339 2693359437 2693361263 2693361373 2693361474 2693361557 2693361625)",
+      "Bash(do)",
+      "Bash(done)",
     ],
+    "deny": [],
+    "ask": [],
     "defaultMode": "default"
   },
   "model": "opus",
@@ -40,29 +73,22 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "AskUserQuestion",
+        "matcher": "Grep|Glob",
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Blow.aiff"
+            "command": "/Users/neriyarden/.claude/hooks/delegation-check.py",
+            "timeout": 30
           }
         ]
       },
       {
-        "matcher": "Grep",
+        "matcher": "AskUserQuestion|ExitPlanMode",
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/neriyarden/.claude/hooks/delegation-check.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Glob",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/neriyarden/.claude/hooks/delegation-check.py"
+            "command": "osascript -e 'tell application \"System Events\" to get name of first application process whose frontmost is true' | grep -qiE 'code|electron|warp' || afplay /System/Library/Sounds/Blow.aiff",
+            "timeout": 10
           }
         ]
       }
@@ -73,6 +99,10 @@
           {
             "type": "command",
             "command": "afplay /System/Library/Sounds/Blow.aiff"
+          },
+          {
+            "command": "osascript -e 'tell application \"System Events\" to get name of first application process whose frontmost is true' | grep -qiE 'code|electron|warp' || afplay /System/Library/Sounds/Blow.aiff",
+            "timeout": 10              
           }
         ]
       }
@@ -113,9 +143,20 @@
     "command": "bash /Users/neriyarden/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "context7@claude-plugins-official": true
+    "okta-integration@flare-claude-code-marketplace": true,
+    "geppetto@flare-claude-code-marketplace": true,
+    "code-review@claude-plugins-official": true,
+    "aws-secrets@flare-claude-code-marketplace": true,
+    "Notion@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "warp@claude-code-warp": true
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "medium"
+  "skipDangerousModePermissionPrompt": true
 }
