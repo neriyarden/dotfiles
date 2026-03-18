@@ -60,7 +60,11 @@ backup_module() {
 
 backup_module claude \
   "$HOME/.claude/CLAUDE.md" \
-  "$HOME/.claude/settings.json"
+  "$HOME/.claude/settings.json" \
+  "$HOME/.claude/commands" \
+  "$HOME/.claude/agents" \
+  "$HOME/.claude/hooks" \
+  "$HOME/.claude/skills"
 
 backup_module zsh \
   "$HOME/.zshrc"
