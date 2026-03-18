@@ -7,7 +7,7 @@ Personal configuration managed with [GNU Stow](https://www.gnu.org/software/stow
 ### Fresh machine (no existing configs worth keeping)
 
 ```bash
-git clone <your-repo-url> ~/dotfiles
+git clone git@github.com:neriyarden/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 bash setup.sh
 ```
