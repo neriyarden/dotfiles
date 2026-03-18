@@ -24,8 +24,8 @@ copy_dir_if_exists() {
   if [[ -L "$src" ]]; then
     echo "  ~ $src (already symlinked, skipped)"
   elif [[ -d "$src" ]]; then
-    mkdir -p "$(dirname "$dest")"
-    cp -r "$src" "$dest"
+    mkdir -p "$dest"
+    cp -r "$src"/ "$dest"/
     echo "  ✓ $src"
   else
     echo "  - $src (not found, skipped)"
