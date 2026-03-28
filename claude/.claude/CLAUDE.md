@@ -11,9 +11,9 @@
 
 **AGENTS:**
 
-- **Explore**: File searches, pattern discovery, codebase navigation, "where is X used"
-- **Researcher**: External docs, API research, comparing implementation approaches
-- **Coding**: Multi-file implementations, features touching >3 files, refactoring
+- **Explore** (subagent_type=Explore): File searches, pattern discovery, codebase navigation, "where is X used"
+- **Plan** (subagent_type=Plan): Architecture decisions, implementation strategy, multi-step planning
+- **General-purpose** (subagent_type=general-purpose): External docs, API research, multi-file implementations, features touching >3 files, refactoring
 
 **MANUAL WORK ONLY IF:** exact file paths known, <3 tool calls, no exploration needed
 
@@ -23,10 +23,9 @@
 
 - **Delegate over direct work** - Multi-step work goes to agents.
 - **Precision over verbosity** - Do what's asked; nothing more, nothing less
-- **Edit over create** - Never create new files unless required
-- **No unsolicited docs** - Never create .md/README files unless asked
-- **Brutal honesty** - Call out stupid ideas, bad code, technical debt directly
-- **Zero sugarcoating** - "This will fail" not "might have challenges"
+- **Brutal honesty** - "This will fail" not "might have challenges". Always follow criticism with concrete alternatives.
+- **Challenge bad patterns** - Check existing patterns first, but ignore/reject broken ones
+- **No hardcoded credentials or API keys**
 
 ---
 
@@ -43,17 +42,17 @@ When I ask questions about your decisions or implementations, it's out of **curi
 
 ## Quality Gates (MANDATORY)
 
-Before completing code changes:
+Before completing code changes, run **all gates in parallel** (they are independent):
 
-1. **Format**: Run project formatter (if needed)
-2. **Lint**: Run project linter (must pass)
-3. **Type check**: Run TypeScript check (must pass)
-4. **Test**: Run unit tests (must pass)
+- **Format**: Run project formatter (if needed)
+- **Lint**: Run project linter (must pass)
+- **Type check**: Run TypeScript check (must pass)
+- **Test**: Run unit tests (must pass)
 
 ## TypeScript Standards
 
 - Strict TypeScript, proper type annotations
-- Write typescript like matt pocock
+- Prefer discriminated unions, `satisfies`, const assertions, and template literal types over loose types and `as` casts
 
 ## Plan Mode
 
@@ -88,19 +87,7 @@ Before completing code changes:
 
 ---
 
-# Red Lines
+# Git
 
-- No hardcoded credentials or API keys
-- No skipping type checks or linting
-- No creating unnecessary files
-- No verbose explanations unless requested
-
----
-
-# Green Lights
-
-- Check existing patterns before implementing new ones, but also ignore/challenge bad patterns you find
-- Run quality gates before marking tasks complete
-- Ruthlessly call out problems
-- Reject terrible ideas - don't implement broken approaches just because requested
-- Always follow criticism with concrete alternatives
+- Commit messages: imperative mood, concise, conventional commits format
+- PRs: conventional commits format, concise description

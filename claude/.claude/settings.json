@@ -136,7 +136,6 @@
     "geppetto@flare-claude-code-marketplace": true,
     "code-review@claude-plugins-official": true,
     "aws-secrets@flare-claude-code-marketplace": true,
-    "Notion@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
@@ -144,9 +143,11 @@
     "claude-code-setup@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "linear@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "voiceEnabled": true,
+  "skipDangerousModePermissionPrompt": true
 }
