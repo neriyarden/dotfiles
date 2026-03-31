@@ -79,7 +79,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'tell application \"System Events\" to get name of first application process whose frontmost is true' | grep -qiE 'code|electron|warp' || afplay /System/Library/Sounds/Blow.aiff",
+            "command": "lsappinfo info -only name $(lsappinfo front) 2>/dev/null | grep -qiE 'code|warp' || afplay /System/Library/Sounds/Blow.aiff &",
             "timeout": 10
           }
         ]
@@ -90,7 +90,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'tell application \"System Events\" to get name of first application process whose frontmost is true' | grep -qiE 'code|electron|warp' || afplay /System/Library/Sounds/Blow.aiff",
+            "command": "lsappinfo info -only name $(lsappinfo front) 2>/dev/null | grep -qiE 'code|warp' || afplay /System/Library/Sounds/Blow.aiff &",
             "timeout": 10
           }
         ]
