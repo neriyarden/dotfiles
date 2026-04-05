@@ -63,7 +63,8 @@ backup_module claude \
   "$HOME/.claude/commands" \
   "$HOME/.claude/agents" \
   "$HOME/.claude/hooks" \
-  "$HOME/.claude/skills"
+  "$HOME/.claude/skills" \
+  "$HOME/.claude/work"
 
 backup_module zsh \
   "$HOME/.zshrc"

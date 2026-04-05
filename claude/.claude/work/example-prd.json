@@ -1,0 +1,61 @@
+[
+  {
+    "category": "functional",
+    "description": "Template variables are substituted with real values when user selects a template",
+    "steps": [
+      "Open the email client modal on a case with known client and user data",
+      "Select a template from the dropdown that contains {clientFirstName}, {userName}, and {userTitle}",
+      "Implement substitution logic that replaces known variables with values from case/user context",
+      "Verify the subject and message fields show the substituted values instead of {variable} placeholders"
+    ],
+    "passes": false
+  },
+  {
+    "category": "functional",
+    "description": "Send button is blocked when unresolved placeholders remain in subject or message",
+    "steps": [
+      "Open the email client modal and select a template containing a manual-replacement variable like {date}",
+      "Implement validation that scans subject and message for unresolved [bracket] and {variable} placeholders",
+      "Click Send without replacing the placeholder",
+      "Verify an inline error appears listing the unresolved placeholders",
+      "Replace the placeholder with real text and verify Send is now enabled"
+    ],
+    "passes": false
+  },
+  {
+    "category": "ui",
+    "description": "Confirmation dialog appears when selecting a template while content already exists",
+    "steps": [
+      "Open the email client modal and type text into the subject and message fields",
+      "Select a template from the dropdown",
+      "Implement a confirmation dialog that warns the user their existing content will be replaced",
+      "Click Cancel and verify the original content is preserved",
+      "Click Continue and verify the template content replaces the existing content"
+    ],
+    "passes": false
+  },
+  {
+    "category": "edge-case",
+    "description": "Pronoun variables resolve correctly based on client gender",
+    "steps": [
+      "Open the email client modal on a case where the client has a known gender",
+      "Select a template containing {pronoun} and {pronounPossessive}",
+      "Implement pronoun resolution: Male maps to he/his, Female to she/her, Other to they/their",
+      "Verify pronouns are substituted correctly for each gender value",
+      "For a client with no gender set, verify fallback to bracket placeholders like [He/She]"
+    ],
+    "passes": false
+  },
+  {
+    "category": "edge-case",
+    "description": "Unknown variables fall back to bracket placeholders and block send",
+    "steps": [
+      "Open the email client modal and select a template containing an unrecognized variable like {customVar}",
+      "Implement fallback logic that converts unknown {variables} to [Human Readable] bracket format",
+      "Verify the unrecognized variable appears as a bracket placeholder in the message",
+      "Attempt to send and verify the validation error lists the unresolved placeholder",
+      "Manually replace the placeholder and verify sending is unblocked"
+    ],
+    "passes": false
+  }
+]
