@@ -18,7 +18,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "git.branchProtectionPrompt": "alwaysCommitToNewBranch",
   "githubPullRequests.pullBranch": "never",
   "diffEditor.ignoreTrimWhitespace": false,
   "window.nativeTabs": true,
@@ -157,5 +156,6 @@
   "chat.tools.terminal.autoApprove": {
     "pnpm": true
   },
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "git.branchProtection": ["main"]
 }
