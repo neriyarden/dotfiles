@@ -1,22 +1,22 @@
 {
   "workbench.iconTheme": "vscode-icons",
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.autoSave": "onFocusChange",
   "vsicons.presets.nestjs": true,
   "editor.stickyScroll.enabled": true,
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "git.autofetch": true,
   "terminal.integrated.defaultProfile.osx": "zsh",
   "editor.inlineSuggest.enabled": true,
   "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "git.branchProtectionPrompt": "alwaysCommitToNewBranch",
   "githubPullRequests.pullBranch": "never",
@@ -29,7 +29,7 @@
     "plaintext": false,
     "markdown": true,
     "scminput": false,
-    "python": true,
+    "python": true
   },
   "cSpell.userWords": [
     "AMPM",
@@ -52,7 +52,7 @@
     "tanstack",
     "Trustpilot",
     "usehooks",
-    "Vinny",
+    "Vinny"
   ],
   "editor.hover.delay": 400,
   "githubPullRequests.defaultCreateOption": "createDraft",
@@ -66,7 +66,7 @@
   "CodeGPT.model": "CodeGPT Plus",
   "security.promptForLocalFileProtocolHandling": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
   "github.copilot.chat.welcomeMessage": "always",
   "window.zoomLevel": 1,
@@ -76,7 +76,7 @@
   "window.autoDetectColorScheme": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
   "vscode_custom_css.imports": [
-    "file:///Users/neriyarden/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.1/dist/updateHandler.js",
+    "file:///Users/neriyarden/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.1/dist/updateHandler.js"
   ],
   "animations.Scrolling": "Slide",
   "editor.minimap.enabled": false,
@@ -94,11 +94,11 @@
   "workbench.editor.pinnedTabsOnSeparateRow": true,
   "eslint.options": {},
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
   "github.copilot.advanced": {
-    "authProvider": "github",
+    "authProvider": "github"
   },
   "gitlens.views.scm.grouped.views": {
     "commits": true,
@@ -110,7 +110,7 @@
     "contributors": true,
     "repositories": false,
     "searchAndCompare": true,
-    "launchpad": false,
+    "launchpad": false
   },
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -130,13 +130,13 @@
     "non-null-expression",
     "conditional-type",
     "nested-conditional-type",
-    "mapped-type",
+    "mapped-type"
   ],
   "github.copilot.nextEditSuggestions.enabled": true,
   "cSpell.enabledNotifications": {
     "Lines too Long": false,
     "Average Word Length too Long": false,
-    "Maximum Word Length Exceeded": false,
+    "Maximum Word Length Exceeded": false
   },
   "eslint.useFlatConfig": true,
   "eslint.execArgv": null,
@@ -152,11 +152,10 @@
     "https://www.schemastore.org/": true,
     "https://json.schemastore.org/": true,
     "https://json-schema.org/": true,
-    "https://biomejs.dev": true,
+    "https://biomejs.dev": true
   },
-  "git.branchProtection": ["main"],
   "chat.tools.terminal.autoApprove": {
-    "pnpm": true,
+    "pnpm": true
   },
-  "redhat.telemetry.enabled": false,
+  "redhat.telemetry.enabled": false
 }
