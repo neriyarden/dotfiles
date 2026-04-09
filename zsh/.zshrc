@@ -25,7 +25,7 @@ alias claudsp="claude --dangerously-skip-permissions"
 claude() {
   local claude_path=$(find ~/.vscode/extensions -name "anthropic.claude-code-*" -type d | sort -V | tail -1)/resources/native-binary/claude
   if [[ -f "$claude_path" ]]; then
-    "$claude_path" "$@"
+    "$claude_path" --dangerously-skip-permissions "$@"
   else
     echo "Claude binary not found"
     return 1
