@@ -49,7 +49,9 @@
       "Bash(gh pr review --help:*)"
     ],
     "deny": [],
-    "ask": [],
+    "ask": [
+      "Bash(gh pr edit:*)"
+    ],
     "defaultMode": "default"
   },
   "hooks": {
