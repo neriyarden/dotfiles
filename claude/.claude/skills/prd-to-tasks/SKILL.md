@@ -27,6 +27,7 @@ Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an
 - Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
 - A completed slice is demoable or verifiable on its own
 - Prefer many thin slices over few thick ones
+- Each task MUST include both tests and implementation. Never create separate red-phase and green-phase tasks — that is horizontal slicing.
 </vertical-slice-rules>
 
 ### 4. Quiz the user

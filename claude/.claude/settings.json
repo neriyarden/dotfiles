@@ -46,7 +46,9 @@
       "Bash(/tmp/fix_services.sh)",
       "Bash(xargs grep:*)",
       "Bash(git fetch:*)",
-      "Bash(gh pr review --help:*)"
+      "Bash(gh pr review --help:*)",
+      "Edit(~/.claude/work/features/**)",
+      "Write(~/.claude/work/features/**)"
     ],
     "deny": [],
     "ask": [
@@ -154,7 +156,9 @@
     "security-guidance@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "warp@claude-code-warp": true,
-    "linear@claude-plugins-official": true
+    "linear@claude-plugins-official": true,
+    "log-investigator@flare-claude-code-marketplace": true,
+    "slack@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
