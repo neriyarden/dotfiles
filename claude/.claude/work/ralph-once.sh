@@ -22,7 +22,6 @@ Respect the blockedBy field — never work on a task whose blockers have not pas
 5. Update tasks.json — flip passes to true for the completed task. \
 6. Append your progress to $FEATURE_DIR/progress.txt. \
 Use this to leave a note for the next person working in the codebase.
-6. Make a git commit of that task.
 ONLY WORK ON A SINGLE TASK.
 After completing the task, read tasks.json and check if every entry has passes set to true. \
 If so, output <promise>COMPLETE</promise>. \
