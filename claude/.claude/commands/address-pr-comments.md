@@ -1,5 +1,5 @@
 ---
-description: "Fetch PR review comments and interactively triage each one with the user before implementing fixes"
+description: "Fetch PR review comments (inline and issue-level) and interactively triage each one with the user before implementing fixes"
 argument-hint: "<pr-number-or-url-or-branch>"
 allowed-tools: "Read, Edit, Write, Bash(gh pr view:*), Bash(gh repo view:*), Bash(gh api:*), Bash(gh pr diff:*), Bash(gh pr checkout:*), Bash(git diff:*), Bash(git status:*), Bash(git checkout:*), Bash(git log:*), Bash(git remote:*), Bash(gh api repos:*), AskUserQuestion, Glob, Grep"
 ---
@@ -8,7 +8,7 @@ Arguments: $ARGUMENTS
 
 ## Overview
 
-Interactively resolve PR review comments. For each comment: show context, propose a fix, then let the user decide.
+Interactively resolve PR comments — both inline review comments (file-level) and issue-level comments (PR Conversation tab). For each: show context, propose a fix, then let the user decide.
 
 ## Step 1: Parse the PR argument
 
@@ -16,30 +16,21 @@ Interactively resolve PR review comments. For each comment: show context, propos
 - Extract the PR number. If it's a URL, parse the number from it. If it's a branch name, use `gh pr view <branch> --json number -q .number` to get the number.
 - Store the PR number for subsequent steps.
 
-## Step 2: Fetch PR review comments
+## Step 2: Fetch PR comments
 
-Run this command to get all review comments (NOT issue-level comments):
-
-```
-gh api repos/{owner}/{repo}/pulls/{pr_number}/reviews --paginate
-gh api repos/{owner}/{repo}/pulls/{pr_number}/comments --paginate
-```
+### 2a. Fetch inline review comments (via GraphQL)
 
 Use the repo from the current git remote.
 
-**Filter to only unresolved comments:**
-
-- From the comments endpoint, keep comments where `in_reply_to_id` is absent (these are top-level review comments, not replies)
-- Cross-reference with the PR review threads: `gh api graphql` to check which threads are resolved
-
-Use this GraphQL query to get resolved status:
+Use this GraphQL query to get all review threads with their resolved status and comment data in one call:
 
 ```
 gh api graphql -f query='
-  query($owner: String!, $repo: String!, $pr: Int!) {
+  query($owner: String!, $repo: String!, $pr: Int!, $cursor: String) {
     repository(owner: $owner, name: $repo) {
       pullRequest(number: $pr) {
-        reviewThreads(first: 100) {
+        reviewThreads(first: 100, after: $cursor) {
+          pageInfo { hasNextPage endCursor }
           nodes {
             isResolved
             comments(first: 1) {
@@ -51,6 +42,7 @@ gh api graphql -f query='
                 line
                 diffHunk
                 author { login }
+                createdAt
               }
             }
           }
@@ -61,15 +53,46 @@ gh api graphql -f query='
 ' -f owner='{owner}' -f repo='{repo}' -F pr={pr_number}
 ```
 
-This gives you each thread's `isResolved` status and the first comment (which is the review comment itself).
+**If `pageInfo.hasNextPage` is true**, re-run the query passing `-f cursor='{endCursor}'` to fetch the next page. Repeat until all threads are fetched.
 
 **Keep only threads where `isResolved` is `false`.**
 
-If there are no unresolved comments, inform the user and stop.
+### 2b. Fetch issue-level comments
 
-## Step 3: Group comments by file
+Run this command to get all issue-level comments (the general comments on the PR Conversation tab):
 
-Group the unresolved comments by their `path` (file path). This provides natural context flow.
+```
+gh api repos/{owner}/{repo}/issues/{pr_number}/comments --paginate
+```
+
+Each comment object has: `id`, `user.login`, `body`, `created_at`.
+
+**Filter out trivial and bot comments:**
+
+- Skip comments from bot users (`user.type === "Bot"`)
+- Skip comments where `body` is under 20 characters and doesn't contain a question mark
+- Skip comments where `body` matches common trivial patterns (case-insensitive): "LGTM", "looks good", "👍", ":+1:", "ship it", "+1", "nice", "thanks", "approved"
+
+Keep the remaining as **issue-level comments**. For each, record: `comment_id`, `author`, `body`, `created_at`.
+
+### 2c. Check if there's anything to do
+
+If there are no unresolved inline comments AND no non-trivial issue-level comments, inform the user and stop.
+
+## Step 3: Group and order comments
+
+### Inline comments first
+Group unresolved inline comments by their `path` (file path). Within each file, order by line number. This provides natural context flow.
+
+### Issue-level comments second
+After all inline comments, present issue-level comments in chronological order (by `created_at`).
+
+### Splitting issue-level comments into action items
+When presenting an issue-level comment, use judgment to decide whether to split it into separate action items:
+- **Split** when the body contains clearly distinct items: numbered lists, bullet points, or obviously separate topics
+- **Don't split** when the body is ambiguous prose, a single cohesive thought, or when the boundaries between items are unclear
+
+Each split item is triaged independently. Unsplit comments are triaged as a single item.
 
 ## Step 4: Checkout the PR branch
 
@@ -83,58 +106,41 @@ Or if already on the branch, skip this.
 
 ## Step 5: Iterate over each comment
 
-For each unresolved comment, in order grouped by file:
+Follow the ordering from Step 3. For each item:
 
 ### 5a. Show context
 
-Display to the user:
+- **Inline**: `### Comment by @{author} on \`{path}\`:{line}` + quoted body + last ~10 lines of `diffHunk`
+- **Issue-level**: `### Comment by @{author} (issue-level)` + quoted full body. If split into action items, show full body first, then present each item individually.
 
-```
-### Comment by @{author} on `{path}`:{line}
+### 5b. Read and analyze
 
-> {comment body}
+- Read the relevant file lines (use `offset`/`limit` for large files) or files referenced by issue-level comments
+- Formulate a **specific proposed fix** — concrete, not vague: "Change X to Y", "Extract into `parseUserInput()`", "Add null check before `.foo`"
+- If the comment is too vague to act on, say so honestly
 
-**Code context (from diff):**
-{diffHunk - last ~10 lines for readability}
-```
+### 5c. Ask user
 
-### 5b. Read the current file and analyze
-
-- Read the actual file at the relevant lines
-- Understand what the reviewer is asking for
-- Formulate a **specific proposed fix** — not vague, but concrete: "Change X to Y" or "Extract this into a function called Z" or "Add null check before accessing .foo"
-
-### 5c. Present proposal and ask user
-
-Show your proposed fix to the user, then use AskUserQuestion:
-
-```
-**My proposed fix:** {concrete description of what you'd change}
-```
-
-Then ask with AskUserQuestion:
-
-- **"Apply this fix"** — You will implement exactly what was proposed
-- **"Skip"** — No changes, move to next comment
-- (Other) — User provides their own approach
-
-If user picks "Apply this fix" → add to the implementation list.
-If user picks "Skip" → move on.
-If user picks Other → record their instructions instead.
+Show `**My proposed fix:** {description}`, then AskUserQuestion:
+- **"Apply this fix"** → add to implementation list
+- **"Skip"** → move on
+- (Other) → record user's instructions instead
 
 ## Step 6: Summary before implementing
 
-After triaging ALL comments, show a summary:
+After triaging ALL comments (both inline and issue-level), show a summary:
 
 ```
 ## Triage Summary
 
 **Will fix ({n}):**
 1. `{file}:{line}` — {what you'll do}
-2. ...
+2. [Issue comment by @{author}] — {what you'll do}
+3. ...
 
 **Skipped ({n}):**
 1. `{file}:{line}` — {reviewer comment summary}
+2. [Issue comment by @{author}] — {comment summary}
 ```
 
 Ask the user to confirm before proceeding:
@@ -153,32 +159,16 @@ For each approved fix, in file order:
 
 After all fixes are applied, show final summary of what changed.
 
-## Step 8: Offer to reply to each addressed comment
+## Step 8: Offer to reply to each comment
 
-Go through **all** unresolved comments — both addressed and skipped — **one by one**. For each:
+Go through **all** comments (addressed and skipped), one by one. For each:
 
-1. Show the original comment:
-   ```
-   ### Comment by @{author} on `{path}`:{line}
-   > {comment body}
-   ```
-
-2. Suggest a reply based on what was implemented:
-   ```
-   **Suggested reply:** {concise reply describing what was done, e.g. "Done — extracted into `parseUserInput()` at line 45."}
-   ```
-
-3. Use AskUserQuestion to ask:
-   - **"Post suggested reply"** — post the suggested reply as-is
-   - **"Skip"** — don't reply to this comment
-   - (Other) — user provides their own reply text; post that instead
-
-4. If posting a reply, use:
-   ```
-   gh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies -f body='{reply_text}'
-   ```
-
-Do **not** batch these — ask about each comment individually before moving to the next.
+1. Re-show the original comment (same format as Step 5a)
+2. Suggest a concise reply: `**Suggested reply:** "Done — extracted into \`parseUserInput()\` at line 45."`
+3. AskUserQuestion: **"Post suggested reply"** / **"Skip"** / (Other — user provides custom reply)
+4. Post replies using heredocs to avoid quoting issues:
+   - **Inline**: `gh api repos/{owner}/{repo}/pulls/comments/{comment_id}/replies -f body="$(cat <<'EOF' ... EOF )"`
+   - **Issue-level** (new top-level comment — prefix with `> @{author} wrote: ...` for context): `gh api repos/{owner}/{repo}/issues/{pr_number}/comments -f body="$(cat <<'EOF' ... EOF )"`
 
 ## Important Notes
 
