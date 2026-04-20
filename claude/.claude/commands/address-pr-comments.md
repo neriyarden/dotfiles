@@ -82,13 +82,17 @@ If there are no unresolved inline comments AND no non-trivial issue-level commen
 ## Step 3: Group and order comments
 
 ### Inline comments first
+
 Group unresolved inline comments by their `path` (file path). Within each file, order by line number. This provides natural context flow.
 
 ### Issue-level comments second
+
 After all inline comments, present issue-level comments in chronological order (by `created_at`).
 
 ### Splitting issue-level comments into action items
+
 When presenting an issue-level comment, use judgment to decide whether to split it into separate action items:
+
 - **Split** when the body contains clearly distinct items: numbered lists, bullet points, or obviously separate topics
 - **Don't split** when the body is ambiguous prose, a single cohesive thought, or when the boundaries between items are unclear
 
@@ -110,7 +114,7 @@ Follow the ordering from Step 3. For each item:
 
 ### 5a. Show context
 
-- **Inline**: `### Comment by @{author} on \`{path}\`:{line}` + quoted body + last ~10 lines of `diffHunk`
+- **Inline**: `### Comment by @{author} on \`{path}\`:{line}`+ quoted body + last ~10 lines of`diffHunk`
 - **Issue-level**: `### Comment by @{author} (issue-level)` + quoted full body. If split into action items, show full body first, then present each item individually.
 
 ### 5b. Read and analyze
@@ -122,6 +126,7 @@ Follow the ordering from Step 3. For each item:
 ### 5c. Ask user
 
 Show `**My proposed fix:** {description}`, then AskUserQuestion:
+
 - **"Apply this fix"** → add to implementation list
 - **"Skip"** → move on
 - (Other) → record user's instructions instead
@@ -159,11 +164,21 @@ For each approved fix, in file order:
 
 After all fixes are applied, show final summary of what changed.
 
-## Step 8: Offer to reply to each comment
+## Step 8: Offer to commit and push changes
+
+If any fixes were implemented in Step 7, ask the user before proceeding to replies:
+
+Use AskUserQuestion: **"Commit and push changes?"** / **"Skip — move to replies"** / (Other)
+
+- **"Commit and push changes?"** → Stage the changed files, create a commit with a descriptive message (conventional commits format), and push to the PR branch.
+- **"Skip — move to replies"** → Continue to Step 9 without committing.
+- (Other) → Follow user's instructions.
+
+## Step 9: Offer to reply to each comment
 
 Go through **all** comments (addressed and skipped), one by one. For each:
 
-1. Re-show the original comment (same format as Step 5a)
+1. Re-show the original comment (same format as Step 5a, briefly)
 2. Suggest a concise reply: `**Suggested reply:** "Done — extracted into \`parseUserInput()\` at line 45."`
 3. AskUserQuestion: **"Post suggested reply"** / **"Skip"** / (Other — user provides custom reply)
 4. Post replies using heredocs to avoid quoting issues:
