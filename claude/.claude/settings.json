@@ -1,7 +1,10 @@
 {
   "env": {
     "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "MONGODB_STAGING_URI": "mongodb+srv://node:marblerules1@marble-staging2.jycnt.mongodb.net/marble",
+    "MONGODB_PRODUCTION_URI": "mongodb+srv://node:7YWXdRmQ8iaDrtWR@marble-prod.wd92l.mongodb.net/marble?replicaSet=atlas-mjeq2t-shard-0&authSource=admin",
+    "ARTEMIS_API_KEY": "510b81a7-a530-4faa-afde-4234b2202672"
   },
   "permissions": {
     "allow": [
@@ -158,10 +161,13 @@
     "warp@claude-code-warp": true,
     "linear@claude-plugins-official": true,
     "log-investigator@flare-claude-code-marketplace": true,
-    "slack@claude-plugins-official": true
+    "slack@claude-plugins-official": true,
+    "mongodb@flare-claude-code-marketplace": true,
+    "frontend-design@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
-  "voiceEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
 }
