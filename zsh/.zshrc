@@ -14,6 +14,7 @@ setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS
 # --- PATH ---
 export PATH="$HOME/.local/bin:$PATH"
 [[ -d "/usr/local/opt/python@3.11" ]] && export PATH="/usr/local/opt/python@3.11/libexec/bin:$PATH"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # --- NVM ---
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -60,9 +61,9 @@ add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
 # --- Tools ---
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(direnv hook zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
 
 # --- Local overrides (not tracked in git) ---
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
@@ -74,5 +75,4 @@ alias zshconfig="code ~/.zshrc"
 
 # Let nvm manage the Node.js path dynamically
 export PATH="/Users/neriyarden/.local/bin:$PATH"
-export PATH="$PATH:`yarn global bin`"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+command -v yarn >/dev/null 2>&1 && export PATH="$PATH:$(yarn global bin 2>/dev/null)"
