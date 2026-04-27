@@ -72,6 +72,7 @@ command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
 alias claudsp='claude --dangerously-skip-permissions'
 alias reload="source ~/.zshrc"
 alias zshconfig="code ~/.zshrc"
+alias ralph-once="bash /Users/neriyarden/.claude/work/ralph-once.sh"
 
 # Let nvm manage the Node.js path dynamically
 export PATH="/Users/neriyarden/.local/bin:$PATH"
