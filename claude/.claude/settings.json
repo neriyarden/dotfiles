@@ -51,12 +51,14 @@
       "Bash(git fetch:*)",
       "Bash(gh pr review --help:*)",
       "Edit(~/.claude/work/features/**)",
-      "Write(~/.claude/work/features/**)"
+      "Write(~/.claude/work/features/**)",
+      "Edit(/Users/neriyarden/.claude/work/features/**)",
+      "Write(/Users/neriyarden/.claude/work/features/**)",
+      "Edit(/Users/neriyarden/dotfiles/claude/.claude/work/features/**)",
+      "Write(/Users/neriyarden/dotfiles/claude/.claude/work/features/**)"
     ],
     "deny": [],
-    "ask": [
-      "Bash(gh pr edit:*)"
-    ],
+    "ask": ["Bash(gh pr edit:*)"],
     "defaultMode": "default"
   },
   "hooks": {
