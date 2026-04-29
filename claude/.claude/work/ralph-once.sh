@@ -12,7 +12,7 @@ if [ ! -f "$FEATURE_DIR/tasks.json" ]; then
   exit 1
 fi
 
-claude --permission-mode acceptEdits "@$FEATURE_DIR/prd.md @$FEATURE_DIR/tasks.json @$FEATURE_DIR/progress.txt \
+claude --dangerously-skip-permissions "@$FEATURE_DIR/prd.md @$FEATURE_DIR/tasks.json @$FEATURE_DIR/progress.txt \
 1. Find the highest-priority task to work on and work only on that task. \
 This should be the one YOU decide has the highest priority - not necessarily the first in the list. \
 Respect the blockedBy field — never work on a task whose blockers have not passed yet. \
